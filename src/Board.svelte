@@ -1,14 +1,43 @@
-<div class="status">Next player: X</div>
-<div class="board">
-    Board
-</div>
+<script>
+    import { onMount } from 'svelte';
+    
+    export let width  = 3;
+    export let height = 3;
+    export let cellWidth  = 34;
+    export let cellHeight = 34;
+    export let colorStroke = "#999";
+    let boardWidth  = 1 + (width * cellWidth);
+    let boardHeight = 1 + (height * cellHeight);
+    let canvas;
 
-<style>
-    .board {
-        width: 102px;
-    }
+    onMount(() => {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, boardWidth, boardHeight);
+        ctx.beginPath();
+        
+        // vertical lines
+        for (let x = 0; x <= boardWidth; x += cellWidth) {
+            ctx.moveTo(0.5 + x, 0);
+            ctx.lineTo(0.5 + x, boardHeight);
+        }
+        
+        // horizontal lines
+        for (let y = 0; y <= boardHeight; y += cellHeight) {
+            ctx.moveTo(0, 0.5 + y);
+            ctx.lineTo(boardWidth, 0.5 +  y);
+        }
 
-    .status {
-        margin-bottom: 10px;
-    }   
-</style>
+        // draw the board
+        ctx.strokeStyle = colorStroke;
+        ctx.stroke();
+
+        ctx.closePath();
+    });
+
+</script>
+
+<canvas
+    bind:this={canvas}
+    width={boardWidth}
+    height={boardHeight}
+></canvas>

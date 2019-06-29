@@ -7,6 +7,7 @@
         <Board />
     </div>
     <div class="game-info">
+		<div class="status">Next player: X</div>
         <div></div>
         <ol></ol>
     </div>
@@ -23,6 +24,10 @@
     .game-info {
         margin-left: 20px;
     }
+
+    .status {
+        margin-bottom: 10px;
+    }   
 
     ol {
         padding-left: 30px;
