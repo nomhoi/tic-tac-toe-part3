@@ -1,5 +1,6 @@
 <script>
 	import Board from './Board.svelte';
+	import { state } from './stores.js';
 </script>
 
 <div class="game">
@@ -8,7 +9,10 @@
     </div>
     <div class="game-info">
 		<div class="status">Next player: X</div>
-        <div></div>
+        <div>
+			<button on:click={state.state1}>State 1</button>
+			<button on:click={state.state2}>State 2</button>
+		</div>
         <ol></ol>
     </div>
 </div>
