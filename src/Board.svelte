@@ -6,6 +6,7 @@
     export let cellWidth  = 34;
     export let cellHeight = 34;
     export let colorStroke = "#999";
+    export let state = Array(9).fill('X');
     let boardWidth  = 1 + (width * cellWidth);
     let boardHeight = 1 + (height * cellHeight);
     let canvas;
@@ -40,9 +41,12 @@
 
         ctx.font = "bold 22px Century Gothic";
         let d = 8;
+        let k = 0;
+        console.log(state);
         for (let i = 0; i < height; i+=1) {
             for (let j = 0; j < width; j+=1) {
-                ctx.fillText("O", j * cellWidth + d + 1, (i + 1) * cellHeight - d);
+                ctx.fillText(state[k], j * cellWidth + d + 1, (i + 1) * cellHeight - d);
+                k++;
             }
         }
 
