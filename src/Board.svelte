@@ -13,6 +13,8 @@
     onMount(() => {
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, boardWidth, boardHeight);
+
+        // draw board
         ctx.beginPath();
         
         // vertical lines
@@ -30,6 +32,19 @@
         // draw the board
         ctx.strokeStyle = colorStroke;
         ctx.stroke();
+
+        ctx.closePath();
+
+        // draw cells
+        ctx.beginPath();
+
+        ctx.font = "bold 22px Century Gothic";
+        let d = 8;
+        for (let i = 0; i < height; i+=1) {
+            for (let j = 0; j < width; j+=1) {
+                ctx.fillText("O", j * cellWidth + d + 1, (i + 1) * cellHeight - d);
+            }
+        }
 
         ctx.closePath();
     });
