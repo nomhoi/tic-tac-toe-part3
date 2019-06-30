@@ -7,6 +7,7 @@ function createState() {
 		subscribe,
 		state1: () => set(Array(9).fill('1')),
 		state2: () => set(Array(9).fill('2')),
+		setCell: (i) => update(a => {a[i] = 'X'; return a;}),
 	};
 }
 

@@ -11,6 +11,13 @@
     let boardHeight = 1 + (height * cellHeight);
     let canvas;
 
+    function handleClick(event) {
+        let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
+        let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
+        let i = y * width + x;
+        state.setCell(i);
+    }
+
     onMount(() => {
         const ctx = canvas.getContext('2d');
 
@@ -65,4 +72,5 @@
     bind:this={canvas}
     width={boardWidth}
     height={boardHeight}
+    on:click={handleClick}
 ></canvas>
