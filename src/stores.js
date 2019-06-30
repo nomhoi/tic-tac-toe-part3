@@ -11,6 +11,7 @@ class History {
 	}
 
 	push(state) {
+		// TODO: remove all redo states
 		this.current++;
 		this.history.push(state);
 	}
@@ -29,7 +30,6 @@ function createHistory() {
 			// change the value of the selected cell to X
 			state[i] = 'X';
 
-			// TODO: remove all redo states
 			// add the new state to the history
 			h.push(state);
 
