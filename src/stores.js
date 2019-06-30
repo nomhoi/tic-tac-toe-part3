@@ -3,8 +3,7 @@ import { writable } from 'svelte/store';
 class History {
 	constructor() {
 		this.history = new Array;
-		this.current = 0;
-		this.history[this.current] = Array(9).fill('Y');
+		this.current = -1;
 	}
 
 	currentState() {
@@ -23,7 +22,6 @@ function createHistory() {
 	return {
 		subscribe,
 		push: (state) => update(h => { h.push(state); return h; }),
-		//setCell: (i) => update(a => {a[i] = 'X'; return a;}),
 	};
 }
 

@@ -11,6 +11,8 @@
     let boardHeight = 1 + (height * cellHeight);
     let canvas;
 
+    history.push(Array(9).fill(''));
+
     function handleClick(event) {
         let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
         let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
