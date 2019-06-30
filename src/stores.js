@@ -22,6 +22,20 @@ function createHistory() {
 	return {
 		subscribe,
 		push: (state) => update(h => { h.push(state); return h; }),
+		clickCell: (i) => update(h => { 
+			// create a copy of the current state
+			const state = h.currentState().slice();
+			
+			// change the value of the selected cell to X
+			state[i] = 'X';
+
+			// TODO: remove all redo states
+			// add the new state to the history
+			h.push(state);
+
+			console.log(h);
+			return h;
+		}),
 	};
 }
 

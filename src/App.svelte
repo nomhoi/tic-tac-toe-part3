@@ -9,9 +9,7 @@
     </div>
     <div class="game-info">
 		<div class="status">Next player: X</div>
-        <div>
-			<button on:click={() => history.push(Array(9).fill($history.current + 1))}>Push</button>
-		</div>
+        <div></div>
         <ol></ol>
     </div>
 </div>

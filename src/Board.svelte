@@ -17,7 +17,7 @@
         let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
         let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
         let i = y * width + x;
-        //state.setCell(i);
+        history.clickCell(i);
     }
 
     onMount(() => {
