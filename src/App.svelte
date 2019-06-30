@@ -1,6 +1,6 @@
 <script>
 	import Board from './Board.svelte';
-	import { state } from './stores.js';
+    import { history } from './stores.js';    
 </script>
 
 <div class="game">
@@ -10,8 +10,7 @@
     <div class="game-info">
 		<div class="status">Next player: X</div>
         <div>
-			<button on:click={state.state1}>State 1</button>
-			<button on:click={state.state2}>State 2</button>
+			<button on:click={() => history.push(Array(9).fill($history.current + 1))}>Push</button>
 		</div>
         <ol></ol>
     </div>

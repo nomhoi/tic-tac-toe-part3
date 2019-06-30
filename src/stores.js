@@ -1,14 +1,30 @@
 import { writable } from 'svelte/store';
 
-function createState() {
-	const { subscribe, set, update } = writable(Array(9).fill('O'));
+class History {
+	constructor() {
+		this.history = new Array;
+		this.current = 0;
+		this.history[this.current] = Array(9).fill('Y');
+	}
+
+	currentState() {
+		return this.history[this.current];
+	}
+
+	push(state) {
+		this.current++;
+		this.history.push(state);
+	}
+}
+
+function createHistory() {
+	const { subscribe, set, update } = writable(new History);
 
 	return {
 		subscribe,
-		state1: () => set(Array(9).fill('1')),
-		state2: () => set(Array(9).fill('2')),
-		setCell: (i) => update(a => {a[i] = 'X'; return a;}),
+		push: (state) => update(h => { h.push(state); return h; }),
+		//setCell: (i) => update(a => {a[i] = 'X'; return a;}),
 	};
 }
 
-export const state = createState();
+export const history = createHistory();

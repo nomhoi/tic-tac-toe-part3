@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { state } from './stores.js';
+    import { history } from './stores.js';
 
     export let width  = 3;
     export let height = 3;
@@ -15,7 +15,7 @@
         let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
         let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
         let i = y * width + x;
-        state.setCell(i);
+        //state.setCell(i);
     }
 
     onMount(() => {
@@ -53,7 +53,7 @@
             let k = 0;
             for (let i = 0; i < height; i+=1) {
                 for (let j = 0; j < width; j+=1) {
-                    ctx.fillText($state[k], j * cellWidth + d + 1, (i + 1) * cellHeight - d);
+                    ctx.fillText($history.currentState()[k], j * cellWidth + d + 1, (i + 1) * cellHeight - d);
                     k++;
                 }
             }
