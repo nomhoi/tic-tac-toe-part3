@@ -1,78 +1,78 @@
 <script>
-    import { onMount } from 'svelte';
-    import { history } from './stores.js';
+	import { onMount } from 'svelte';
+	import { history } from './stores.js';
 
-    export let width  = 3;
-    export let height = 3;
-    export let cellWidth  = 34;
-    export let cellHeight = 34;
-    export let colorStroke = "#999";
-    let boardWidth  = 1 + (width * cellWidth);
-    let boardHeight = 1 + (height * cellHeight);
-    let canvas;
+	export let width  = 3;
+	export let height = 3;
+	export let cellWidth  = 34;
+	export let cellHeight = 34;
+	export let colorStroke = "#999";
+	let boardWidth  = 1 + (width * cellWidth);
+	let boardHeight = 1 + (height * cellHeight);
+	let canvas;
 
-    history.push(Array(9).fill(''));
+	history.push(Array(9).fill(''));
 
-    function handleClick(event) {
-        let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
-        let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
-        let i = y * width + x;
-        history.clickCell(i);
-    }
+	function handleClick(event) {
+		let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
+		let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
+		let i = y * width + x;
+		history.clickCell(i);
+	}
 
-    onMount(() => {
-        const ctx = canvas.getContext('2d');
+	onMount(() => {
+		const ctx = canvas.getContext('2d');
 
-        function draw() {
-            ctx.clearRect(0, 0, boardWidth, boardHeight);
+		function draw() {
+			ctx.clearRect(0, 0, boardWidth, boardHeight);
 
-            // draw board
-            ctx.beginPath();
-            
-            // vertical lines
-            for (let x = 0; x <= boardWidth; x += cellWidth) {
-                ctx.moveTo(0.5 + x, 0);
-                ctx.lineTo(0.5 + x, boardHeight);
-            }
-            
-            // horizontal lines
-            for (let y = 0; y <= boardHeight; y += cellHeight) {
-                ctx.moveTo(0, 0.5 + y);
-                ctx.lineTo(boardWidth, 0.5 +  y);
-            }
+			// draw board
+			ctx.beginPath();
 
-            // draw the board
-            ctx.strokeStyle = colorStroke;
-            ctx.stroke();
+			// vertical lines
+			for (let x = 0; x <= boardWidth; x += cellWidth) {
+				ctx.moveTo(0.5 + x, 0);
+				ctx.lineTo(0.5 + x, boardHeight);
+			}
 
-            ctx.closePath();
+			// horizontal lines
+			for (let y = 0; y <= boardHeight; y += cellHeight) {
+				ctx.moveTo(0, 0.5 + y);
+				ctx.lineTo(boardWidth, 0.5 +  y);
+			}
 
-            // draw cells
-            ctx.beginPath();
+			// draw the board
+			ctx.strokeStyle = colorStroke;
+			ctx.stroke();
 
-            ctx.font = "bold 22px Century Gothic";
-            let d = 8;
-            let k = 0;
-            for (let i = 0; i < height; i+=1) {
-                for (let j = 0; j < width; j+=1) {
-                    ctx.fillText($history.currentState()[k], j * cellWidth + d + 1, (i + 1) * cellHeight - d);
-                    k++;
-                }
-            }
+			ctx.closePath();
 
-            ctx.closePath();
+			// draw cells
+			ctx.beginPath();
 
-            requestAnimationFrame(draw);
-        }
+			ctx.font = "bold 22px Century Gothic";
+			let d = 8;
+			let k = 0;
+			for (let i = 0; i < height; i+=1) {
+				for (let j = 0; j < width; j+=1) {
+					ctx.fillText($history.currentState()[k], j * cellWidth + d + 1, (i + 1) * cellHeight - d);
+					k++;
+				}
+			}
 
-        draw();
-    });
+			ctx.closePath();
+
+			requestAnimationFrame(draw);
+		}
+
+		draw();
+	});
 
 </script>
 
 <canvas
-    bind:this={canvas}
-    width={boardWidth}
-    height={boardHeight}
-    on:click={handleClick}
-></canvas>
+				bind:this={canvas}
+				width={boardWidth}
+				height={boardHeight}
+				on:click={handleClick}
+				></canvas>

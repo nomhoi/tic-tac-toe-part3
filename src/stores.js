@@ -11,9 +11,31 @@ class History {
 	}
 
 	push(state) {
-		// TODO: remove all redo states
+		// remove all redo states
+		if (this.canRedo()) 
+			this.history.splice(this.current + 1);
+		
+		// add a new state
 		this.current++;
 		this.history.push(state);
+	}
+	
+	canUndo() {
+		return this.current > 0;
+	}
+	
+	canRedo() {
+		return this.current < this.history.length - 1;
+	}
+	
+	undo() {
+		if (this.canUndo())
+			this.current--;
+	}
+	
+	redo() {
+		if (this.canRedo())
+			this.current++;
 	}
 }
 
@@ -26,7 +48,7 @@ function createHistory() {
 		clickCell: (i) => update(h => { 
 			// create a copy of the current state
 			const state = h.currentState().slice();
-			
+
 			// change the value of the selected cell to X
 			state[i] = 'X';
 
@@ -36,6 +58,8 @@ function createHistory() {
 			console.log(h);
 			return h;
 		}),
+		undo: () => update(h => { h.undo(); return h; }),
+		redo: () => update(h => { h.redo(); return h; }),
 	};
 }
 
