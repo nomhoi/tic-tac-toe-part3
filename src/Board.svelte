@@ -11,13 +11,26 @@
 	let boardHeight = 1 + (height * cellHeight);
 	let canvas;
 
-	history.push(Array(9).fill(''));
+    let state = {
+      squares: Array(9).fill(''),
+      xIsNext: true,
+	};
+
+	history.push(state);
 
 	function handleClick(event) {
 		let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
 		let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
 		let i = y * width + x;
-		history.clickCell(i);
+		
+		const state = $history.currentState();
+		const squares = state.squares.slice();
+		squares[i] = state.xIsNext ? 'X' : 'O';
+		let newState = {
+			squares: squares,
+			xIsNext: !state.xIsNext,
+		};
+		history.push(newState);
 	}
 
 	onMount(() => {
@@ -55,7 +68,7 @@
 			let k = 0;
 			for (let i = 0; i < height; i+=1) {
 				for (let j = 0; j < width; j+=1) {
-					ctx.fillText($history.currentState()[k], j * cellWidth + d + 1, (i + 1) * cellHeight - d);
+					ctx.fillText($history.currentState().squares[k], j * cellWidth + d + 1, (i + 1) * cellHeight - d);
 					k++;
 				}
 			}

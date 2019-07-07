@@ -44,19 +44,10 @@ function createHistory() {
 
 	return {
 		subscribe,
-		push: (state) => update(h => { h.push(state); return h; }),
-		clickCell: (i) => update(h => { 
-			// create a copy of the current state
-			const state = h.currentState().slice();
-
-			// change the value of the selected cell to X
-			state[i] = 'X';
-
-			// add the new state to the history
-			h.push(state);
-
+		push: (state) => update(h => { 
+			h.push(state); 
 			console.log(h);
-			return h;
+			return h; 
 		}),
 		undo: () => update(h => { h.undo(); return h; }),
 		redo: () => update(h => { h.redo(); return h; }),
