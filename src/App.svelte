@@ -1,6 +1,6 @@
 <script>
 	import Board from './Board.svelte';
-	import { history } from './stores.js';    
+	import { history, status } from './stores.js';
 </script>
 
 <div class="game">
@@ -8,17 +8,25 @@
 		<Board />
 	</div>
 	<div class="game-info">
-		<div class="status">Next player: X</div>		
+		<div class="status">
+			{#if $status === 1}
+			 	<b>Winner: {!$history.currentState().xIsNext ? 'X' : 'O'}</b>
+			{:else if $status === 2}
+				<b>Draw</b>
+			{:else}
+				Next player: {$history.currentState().xIsNext ? 'X' : 'O'}
+			{/if}
+		</div>		
 		<div>
 			{#if $history.canUndo()}
-			<button on:click={history.undo}>Undo</button>
+				<button on:click={history.undo}>Undo</button>
 			{:else}
-			<button disabled>Undo</button>
+				<button disabled>Undo</button>
 			{/if}
 			{#if $history.canRedo()}
-			<button on:click={history.redo}>Redo</button>
+				<button on:click={history.redo}>Redo</button>
 			{:else}
-			<button disabled>Redo</button>
+				<button disabled>Redo</button>
 			{/if}
 		</div>
 		<ol>

@@ -1,4 +1,5 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
+import { calculateWinner } from './helpers.js';
 
 class History {
 	constructor() {
@@ -64,3 +65,16 @@ function createHistory() {
 }
 
 export const history = createHistory();
+
+export const status = derived(
+	history,
+	$history => { 
+		if ($history.currentState()) {
+			if (calculateWinner($history.currentState().squares))
+				return 1;
+			else if ($history.current == 9)
+				return 2;
+		}
+		return 0;
+	}
+);
