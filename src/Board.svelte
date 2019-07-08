@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { history } from './stores.js';
+	import { history, status } from './stores.js';
 
 	export let width  = 3;
 	export let height = 3;
@@ -22,8 +22,11 @@
 		let x = Math.trunc((event.offsetX + 0.5) / cellWidth);
 		let y = Math.trunc((event.offsetY + 0.5) / cellHeight);
 		let i = y * width + x;
-		
+
 		const state = $history.currentState();
+		if ($status == 1 || state.squares[i])
+			return;
+		
 		const squares = state.squares.slice();
 		squares[i] = state.xIsNext ? 'X' : 'O';
 		let newState = {
