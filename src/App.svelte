@@ -21,7 +21,15 @@
 			<button disabled>Redo</button>
 			{/if}
 		</div>
-		<ol></ol>
+		<ol>
+			{#each $history.history as value, i}
+				{#if i==0}
+					<li><button on:click={() => history.setCurrent(i)}>Go to game start</button></li>
+				{:else}
+					<li><button on:click={() => history.setCurrent(i)}>Go to move #{i}</button></li>
+				{/if}
+			{/each}
+		</ol>
 	</div>
 </div>
 

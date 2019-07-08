@@ -37,6 +37,10 @@ class History {
 		if (this.canRedo())
 			this.current++;
 	}
+
+	setCurrent(current) {
+		this.current = current;
+	}
 }
 
 function createHistory() {
@@ -51,6 +55,7 @@ function createHistory() {
 		}),
 		undo: () => update(h => { h.undo(); return h; }),
 		redo: () => update(h => { h.redo(); return h; }),
+		setCurrent: (current) => update(h => { h.setCurrent(current); console.log('asdf'); return h; }),
 	};
 }
 
